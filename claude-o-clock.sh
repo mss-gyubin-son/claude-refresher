@@ -59,24 +59,24 @@ while true; do
 
     case "$hour_kst" in
         7)
-            prompt="지금 한국 시간 오전 7시야. 하루 시작을 응원하는 짧은 한 문장만 말해줘."
+            prompt="아침 응원 한 문장:"
             ;;
         12)
-            prompt="지금 한국 시간 정오야. 점심 시간에 활력을 줄 짧은 한 문장으로 응원해줘."
+            prompt="점심 응원 한 문장:"
             ;;
         17)
-            prompt="지금 한국 시간 오후 5시야. 남은 시간을 힘내게 할 짧은 한 문장만 말해줘."
+            prompt="저녁 응원 한 문장:"
             ;;
         22)
-            prompt="지금 한국 시간 밤 10시야. 편안한 마무리를 돕는 짧은 한 문장으로 격려해줘."
+            prompt="밤 응원 한 문장:"
             ;;
         *)
-            prompt="지금 한국 시간 $(format_epoch_kst "$now" "+%H")시야. 짧고 긍정적인 한 문장만 말해줘."
+            prompt="응원 한 문장:"
             ;;
     esac
 
     echo "Asking Claude: $prompt"
-    response=$(claude -p "$prompt")
+    response=$(claude -p "$prompt" --max-tokens 20)
     echo "Claude says: $response"
 
     now=$(date -u +%s)
