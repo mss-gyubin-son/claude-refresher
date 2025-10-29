@@ -41,6 +41,11 @@ next_scheduled_epoch() {
     echo $((candidate_kst - KST_OFFSET))
 }
 
+echo "시작할 때 한 번 호출"
+response=$(claude -p "짧은 응원 한 문장:")
+echo "Claude says: $response"
+echo "====================="
+
 next_call_epoch=$(next_scheduled_epoch "$(date -u +%s)")
 
 while true; do
@@ -59,24 +64,24 @@ while true; do
 
     case "$hour_kst" in
         7)
-            prompt="아침 응원 한 문장:"
+            prompt="짧게 아침 응원 한 문장:"
             ;;
         12)
-            prompt="점심 응원 한 문장:"
+            prompt="짧게 점심 응원 한 문장:"
             ;;
         17)
-            prompt="저녁 응원 한 문장:"
+            prompt="짧게 저녁 응원 한 문장:"
             ;;
         22)
-            prompt="밤 응원 한 문장:"
+            prompt="짧게 밤 응원 한 문장:"
             ;;
         *)
-            prompt="응원 한 문장:"
+            prompt="짧게 응원 한 문장:"
             ;;
     esac
 
     echo "Asking Claude: $prompt"
-    response=$(claude -p "$prompt" --max-tokens 20)
+    response=$(claude -p "$prompt")
     echo "Claude says: $response"
 
     now=$(date -u +%s)
